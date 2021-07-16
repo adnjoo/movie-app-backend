@@ -5,11 +5,15 @@ const cors = require("cors");
 const controller = require("./controller.js");
 const port = process.env.PORT;
 
+const timeout = require('connect-timeout')
+
 
 //let app = a new express instance, and use CORS and JSON
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use(timeout('5s'))
 
 //add a movie
 app.post("/", controller.addMovie);
