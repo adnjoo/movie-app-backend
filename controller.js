@@ -4,13 +4,14 @@
 // const db = (process.env.DATABASE_URL || 'postgres://esgmoucoufbmbt:7581b425617244b40da0ea61b92e765fa615561d9e3ed653aefc42b96ac9ee5c@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6rlju8g18l7s1')
 
 //import postgres
-const { Pool, Client } = require("pg")
+const { Pool, Client } = require("pg");
 
 const pool = new Pool({
-  connectionString: 'postgres://esgmoucoufbmbt:7581b425617244b40da0ea61b92e765fa615561d9e3ed653aefc42b96ac9ee5c@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6rlju8g18l7s1',
+  connectionString:
+    "postgres://esgmoucoufbmbt:7581b425617244b40da0ea61b92e765fa615561d9e3ed653aefc42b96ac9ee5c@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6rlju8g18l7s1",
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 // pool.connect();
@@ -31,7 +32,7 @@ const pool = new Pool({
 //get movies
 function getMovies(req, res) {
   let movies;
-  pool.connect()
+  pool.connect();
   pool.query("select * from movies;", (error, results) => {
     movies = results.rows;
     res.status(200).send(movies);
@@ -42,6 +43,7 @@ function getMovies(req, res) {
 function addMovie(req, res) {
   let movies;
   console.log(req.body);
+  pool.connect();
   pool.query(
     "insert into movies (name) values ($1);",
     [req.body.movie],
@@ -56,6 +58,7 @@ function addMovie(req, res) {
 function deleteMovie(req, res) {
   let movie;
   console.log(req.body);
+  pool.connect();
   pool.query(
     "delete from movies where id = $1;",
     [req.body.id],
@@ -69,15 +72,16 @@ function deleteMovie(req, res) {
 //edit movie name
 function editMovie(req, res) {
   let movie;
-  console.log(req.body)
+  console.log(req.body);
+  pool.connect();
   pool.query(
-    'update movies set name = $1 where id = $2;',
+    "update movies set name = $1 where id = $2;",
     [req.body.name, req.body.id],
-    (err,results)=>{
+    (err, results) => {
       movie = results;
-      res.status(200).send(movie)
+      res.status(200).send(movie);
     }
-  )
+  );
 }
 
 module.exports = {
