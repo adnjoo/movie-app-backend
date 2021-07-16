@@ -1,5 +1,7 @@
 server
 
+> this back-end application serves / saves movies for the user in a Postgres db.
+
 [link](https://andrew-movie-app.herokuapp.com/)
 
 Backend technology:
