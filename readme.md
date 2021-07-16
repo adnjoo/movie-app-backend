@@ -2,9 +2,7 @@ server
 
 description:
 
-returns movies in a JSON format.
-
-> this back-end application serves / saves movies for the user in a Postgres db.
+> this back-end application serves / saves movies for the user in a Postgres db; returns movies in a JSON format.
 
 [link](https://andrew-movie-app.herokuapp.com/)
 
