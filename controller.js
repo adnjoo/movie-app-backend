@@ -13,20 +13,20 @@ const pool = new Pool({
   }
 });
 
-pool.connect();
+// pool.connect();
 
-pool.query('SELECT * from movies;', (err, res) => {
-  console.log(res.rows)
-});
+// pool.query('SELECT * from movies;', (err, res) => {
+//   console.log(res.rows)
+// });
 
 //local db
-const pool1 = new Pool({
-  user: "movie_user",
-  host: "localhost",
-  database: "movie_database",
-  password: "root",
-  port: 5432,
-});
+// const pool1 = new Pool({
+//   user: "movie_user",
+//   host: "localhost",
+//   database: "movie_database",
+//   password: "root",
+//   port: 5432,
+// });
 
 //get movies
 function getMovies(req, res) {
