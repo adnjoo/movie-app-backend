@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const controller = require("./controller.js");
-const port = process.env.PORT || 4001;
+const port = process.env.PORT;
 
 // console.log(port)
 
@@ -27,6 +27,6 @@ app.put("/", controller.editMovie);
 app.delete("/", controller.deleteMovie);
 
 //listening on port
-app.listen(4001, () => {
+app.listen(port || 4001 , () => {
   console.log(`Serving on port ${port}`);
 });
