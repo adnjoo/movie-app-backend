@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const controller = require("./controller.js");
-const port = 4001;
+const port = process.env.PORT || 4001;
 
 
 //let app = a new express instance, and use CORS and JSON
