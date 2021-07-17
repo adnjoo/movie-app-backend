@@ -1,21 +1,15 @@
-// const db = (process.env.DATABASE_URL || 'postgres://esgmoucoufbmbt:7581b425617244b40da0ea61b92e765fa615561d9e3ed653aefc42b96ac9ee5c@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6rlju8g18l7s1')
+console.log(require('dotenv').config())
+require("dotenv").config();
 
 //import postgres
 const { Pool, Client } = require("pg");
 
 const pool = new Pool({
-  connectionString:
-    "postgres://esgmoucoufbmbt:7581b425617244b40da0ea61b92e765fa615561d9e3ed653aefc42b96ac9ee5c@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6rlju8g18l7s1",
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
 });
-
-// pool.connect();
-
-// pool.query('SELECT * from movies;', (err, res) => {
-//   console.log(res.rows)
-// });
 
 //local db
 // const pool1 = new Pool({
@@ -29,62 +23,54 @@ const pool = new Pool({
 //get movies
 function getMovies(req, res) {
   let movies;
-  console.log(req.body)
-  res.status(200).send([
-    {id:108,
-    name:'Batman'
-    }
-  ])
-  // pool.connect();
-  // pool.query("select * from movies;", (error, results) => {
-  //   movies = results.rows;
-  //   res.status(200).send(movies);
-  // });
+  console.log(req.body);
+
+  pool
+    .query("select * from movies;")
+    .then((results) => {
+      movies = results.rows;
+      res.status(200).send(movies);
+    })
+    .catch((err) => console.log(err));
 }
 
 //add a movie
 function addMovie(req, res) {
   let movies;
-  console.log(req.body);
-  pool.connect();
-  pool.query(
-    "insert into movies (name) values ($1);",
-    [req.body.movie],
-    (err, results) => {
+  // console.log(req.body);
+  pool
+    .query("insert into movies (name) values ($1);",[req.body.movie])
+    .then((results) => {
       movies = results;
       res.status(200).send(movies);
-    }
-  );
+    })
+    .catch((err) => console.log(err));
 }
 
 //delete a movie
 function deleteMovie(req, res) {
   let movie;
   console.log(req.body);
-  pool.connect();
-  pool.query(
-    "delete from movies where id = $1;",
-    [req.body.id],
-    (err, results) => {
+  pool
+    .query("delete from movies where id = $1;",[req.body.id])
+    .then((results) => {
       movie = results;
       res.status(200).send(movie);
-    }
-  );
+    })
+    .catch((err) => console.log(err));
 }
 
 //edit movie name
 function editMovie(req, res) {
   let movie;
   console.log(req.body);
-  pool.connect();
-  pool.query(
-    "update movies set name = $1 where id = $2;",
-    [req.body.name, req.body.id],
-    (err, results) => {
+  pool
+    .query("update movies set name = $1 where id = $2;",[req.body.name, req.body.id])
+    .then((results) => {
       movie = results;
       res.status(200).send(movie);
-    }
-  );
+    })
+    .catch((err) => console.log(err));
 }
 
 module.exports = {

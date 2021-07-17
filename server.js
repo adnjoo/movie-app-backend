@@ -1,26 +1,15 @@
-
 //import dependencies
 const express = require("express");
 const cors = require("cors");
 const controller = require("./controller.js");
-const port = process.env.PORT;
+// const port = 4001; // use either the host env var port (PORT) provided by Heroku or the local port (4001) on your machine
+const port = process.env.PORT || 4001; // use either the host env var port (PORT) provided by Heroku or the local port (4001) on your machine
 
-const timeout = require('connect-timeout')
 
-const haltOnTimedout = (req, res, next) => {
-  if (!req.timedout) {
-    next();
-  }
-}
+const app = express(); //let app = a new express instance, and use CORS and JSON
 
-//let app = a new express instance, and use CORS and JSON
-const app = express();
-app.use(timeout('5s'))
-
-app.use(cors());
-app.use(express.json());
-//proceed beyond cors and json only if request hasn't timed out
-app.use(haltOnTimedout)
+app.use(cors()); // Enable CORS
+app.use(express.json()); // Recognize Request Objects as JSON objects
 
 
 //add a movie
@@ -36,7 +25,7 @@ app.put("/", controller.editMovie);
 app.delete("/", controller.deleteMovie);
 
 //listening on port
-app.listen(port || 4001 , () => {
+app.listen(port, () => {
   console.log(`Serving on port ${port}`);
 });
 
@@ -47,3 +36,4 @@ app.listen(port || 4001 , () => {
 
 //help
 //https://medium.com/dataseries/add-timeout-capability-to-express-apps-with-connect-timeout-fce06d76e07a
+//https://github.com/Codecademy/deploying-fullstack-with-heroku-sample
