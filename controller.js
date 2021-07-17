@@ -1,6 +1,3 @@
-// use dot env
-// require('dotenv').config()
-
 // const db = (process.env.DATABASE_URL || 'postgres://esgmoucoufbmbt:7581b425617244b40da0ea61b92e765fa615561d9e3ed653aefc42b96ac9ee5c@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6rlju8g18l7s1')
 
 //import postgres
@@ -32,8 +29,8 @@ const pool = new Pool({
 //get movies
 function getMovies(req, res) {
   let movies;
-  pool.connect();
   console.log(req.body)
+  pool.connect();
   pool.query("select * from movies;", (error, results) => {
     movies = results.rows;
     res.status(200).send(movies);
