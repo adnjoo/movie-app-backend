@@ -30,11 +30,16 @@ const pool = new Pool({
 function getMovies(req, res) {
   let movies;
   console.log(req.body)
-  pool.connect();
-  pool.query("select * from movies;", (error, results) => {
-    movies = results.rows;
-    res.status(200).send(movies);
-  });
+  res.status(200).send([
+    {id:108,
+    name:'Batman'
+    }
+  ])
+  // pool.connect();
+  // pool.query("select * from movies;", (error, results) => {
+  //   movies = results.rows;
+  //   res.status(200).send(movies);
+  // });
 }
 
 //add a movie
