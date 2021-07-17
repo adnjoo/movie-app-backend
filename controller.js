@@ -33,6 +33,7 @@ const pool = new Pool({
 function getMovies(req, res) {
   let movies;
   pool.connect();
+  console.log(req.body)
   pool.query("select * from movies;", (error, results) => {
     movies = results.rows;
     res.status(200).send(movies);
